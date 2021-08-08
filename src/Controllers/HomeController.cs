@@ -1,25 +1,27 @@
-﻿using ForumSoftware.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ForumSoftware.Controllers
+﻿namespace ForumSoftware.Controllers
 {
+    using System.Linq;
+    using System.Diagnostics;
+    using System.Collections.Generic;
+    using ForumSoftware.Data;
+    using ForumSoftware.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext dbContext)
         {
-            _logger = logger;
+            this.dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
+            List<Forum> forums = this.dbContext.Forums.Include(x => x.Topics).ToList();
+            this.ViewData["forums"] = forums;
+
             return View();
         }
 

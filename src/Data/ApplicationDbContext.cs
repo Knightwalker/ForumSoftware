@@ -19,7 +19,11 @@
                 .WithMany(t => t.Topics)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Forum>().HasData(new Forum { Id = 1, Name = "Regulations", Description = "Test" });
+            builder.Entity<Topic>().HasData(new Topic { Id = 1, ForumId = 1, Name = "The Roleplay Regulations" });
+            
             base.OnModelCreating(builder);
+
         }
     }
 }

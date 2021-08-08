@@ -1,5 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var forums = ViewData["forums"] as List<Forum>;
+}
+
+@foreach (var forum in forums)
+{
+    <div>@forum.Name</div>
 }
 
 <div class="text-center">

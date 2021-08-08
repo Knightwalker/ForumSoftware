@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSoftware.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210802125444_ForumsAndTopics")]
-    partial class ForumsAndTopics
+    [Migration("20210808083346_Start")]
+    partial class Start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,9 +34,20 @@ namespace ForumSoftware.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Test")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Forums");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Test",
+                            Name = "Regulations"
+                        });
                 });
 
             modelBuilder.Entity("ForumSoftware.Models.Topic", b =>
@@ -57,6 +68,14 @@ namespace ForumSoftware.Data.Migrations
                     b.HasIndex("ForumId");
 
                     b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ForumId = 1,
+                            Name = "The Roleplay Regulations"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

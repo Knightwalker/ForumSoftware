@@ -32,9 +32,20 @@ namespace ForumSoftware.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Test")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Forums");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Test",
+                            Name = "Regulations"
+                        });
                 });
 
             modelBuilder.Entity("ForumSoftware.Models.Topic", b =>
@@ -55,6 +66,14 @@ namespace ForumSoftware.Data.Migrations
                     b.HasIndex("ForumId");
 
                     b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ForumId = 1,
+                            Name = "The Roleplay Regulations"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

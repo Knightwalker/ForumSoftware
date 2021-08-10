@@ -4,14 +4,16 @@ using ForumSoftware.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumSoftware.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210808213253_Experiments")]
+    partial class Experiments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,10 @@ namespace ForumSoftware.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ForumId")
+                    b.Property<string>("ForumId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ForumId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -40,7 +45,7 @@ namespace ForumSoftware.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ForumId");
+                    b.HasIndex("ForumId1");
 
                     b.ToTable("Forums");
 
@@ -50,27 +55,6 @@ namespace ForumSoftware.Data.Migrations
                             Id = 1,
                             Description = "Test",
                             Name = "Regulations"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Test",
-                            ForumId = 1,
-                            Name = "The Guilds And Factions"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Test",
-                            ForumId = 1,
-                            Name = "The Rosters"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Test",
-                            ForumId = 2,
-                            Name = "The Guilds And Factions Test"
                         });
                 });
 
@@ -306,7 +290,7 @@ namespace ForumSoftware.Data.Migrations
                 {
                     b.HasOne("ForumSoftware.Models.Forum", null)
                         .WithMany("Children")
-                        .HasForeignKey("ForumId");
+                        .HasForeignKey("ForumId1");
                 });
 
             modelBuilder.Entity("ForumSoftware.Models.Topic", b =>

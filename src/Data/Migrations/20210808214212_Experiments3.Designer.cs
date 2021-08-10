@@ -4,14 +4,16 @@ using ForumSoftware.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumSoftware.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210808214212_Experiments3")]
+    partial class Experiments3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,22 +57,13 @@ namespace ForumSoftware.Data.Migrations
                         {
                             Id = 2,
                             Description = "Test",
-                            ForumId = 1,
                             Name = "The Guilds And Factions"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Test",
-                            ForumId = 1,
                             Name = "The Rosters"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Test",
-                            ForumId = 2,
-                            Name = "The Guilds And Factions Test"
                         });
                 });
 

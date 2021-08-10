@@ -19,7 +19,10 @@
 
         public IActionResult Index()
         {
-            List<Forum> forums = this.dbContext.Forums.Include(x => x.Topics).ToList();
+            List<Forum> forums = this.dbContext.Forums
+                .Where(x => !x.ForumId.HasValue)
+                .ToList();
+
             this.ViewData["forums"] = forums;
 
             return View();

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ForumSoftware.Data.Migrations
 {
-    public partial class Start : Migration
+    public partial class start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,13 +52,19 @@ namespace ForumSoftware.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Test = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Forums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Forums_Forums_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Forums",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,13 +195,28 @@ namespace ForumSoftware.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Forums",
-                columns: new[] { "Id", "Description", "Name", "Test" },
+                columns: new[] { "Id", "Description", "Name", "ParentId" },
                 values: new object[] { 1, "Test", "Regulations", null });
+
+            migrationBuilder.InsertData(
+                table: "Forums",
+                columns: new[] { "Id", "Description", "Name", "ParentId" },
+                values: new object[] { 2, "Test", "The Guilds And Factions", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Forums",
+                columns: new[] { "Id", "Description", "Name", "ParentId" },
+                values: new object[] { 3, "Test", "The Rosters", 1 });
 
             migrationBuilder.InsertData(
                 table: "Topics",
                 columns: new[] { "Id", "ForumId", "Name" },
                 values: new object[] { 1, 1, "The Roleplay Regulations" });
+
+            migrationBuilder.InsertData(
+                table: "Forums",
+                columns: new[] { "Id", "Description", "Name", "ParentId" },
+                values: new object[] { 4, "Test", "The Guilds And Factions Test", 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -235,6 +256,11 @@ namespace ForumSoftware.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Forums_ParentId",
+                table: "Forums",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topics_ForumId",

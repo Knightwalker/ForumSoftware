@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSoftware.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210808214212_Experiments3")]
-    partial class Experiments3
+    [Migration("20210816213538_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,18 +31,15 @@ namespace ForumSoftware.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ForumId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Test")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ForumId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Forums");
 
@@ -57,13 +54,22 @@ namespace ForumSoftware.Data.Migrations
                         {
                             Id = 2,
                             Description = "Test",
-                            Name = "The Guilds And Factions"
+                            Name = "The Guilds And Factions",
+                            ParentId = 1
                         },
                         new
                         {
                             Id = 3,
                             Description = "Test",
-                            Name = "The Rosters"
+                            Name = "The Rosters",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Test",
+                            Name = "The Guilds And Factions Test",
+                            ParentId = 2
                         });
                 });
 
@@ -297,9 +303,12 @@ namespace ForumSoftware.Data.Migrations
 
             modelBuilder.Entity("ForumSoftware.Models.Forum", b =>
                 {
-                    b.HasOne("ForumSoftware.Models.Forum", null)
+                    b.HasOne("ForumSoftware.Models.Forum", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ForumId");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("ForumSoftware.Models.Topic", b =>

@@ -35,6 +35,9 @@ namespace ForumSoftware.Data.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
@@ -45,29 +48,32 @@ namespace ForumSoftware.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Test",
-                            Name = "Regulations"
+                            Name = "General",
+                            Type = "category"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Test",
-                            Name = "The Guilds And Factions",
-                            ParentId = 1
+                            Name = "Regulations & Guidelines",
+                            ParentId = 1,
+                            Type = "forum"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Test",
-                            Name = "The Rosters",
-                            ParentId = 1
+                            Name = "The Guilds And Factions",
+                            ParentId = 2,
+                            Type = "forum"
                         },
                         new
                         {
                             Id = 4,
                             Description = "Test",
-                            Name = "The Guilds And Factions Test",
-                            ParentId = 2
+                            Name = "The Rosters",
+                            ParentId = 2,
+                            Type = "forum"
                         });
                 });
 

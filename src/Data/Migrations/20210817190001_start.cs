@@ -53,6 +53,7 @@ namespace ForumSoftware.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentId = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -195,18 +196,13 @@ namespace ForumSoftware.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Forums",
-                columns: new[] { "Id", "Description", "Name", "ParentId" },
-                values: new object[] { 1, "Test", "Regulations", null });
+                columns: new[] { "Id", "Description", "Name", "ParentId", "Type" },
+                values: new object[] { 1, null, "General", null, "category" });
 
             migrationBuilder.InsertData(
                 table: "Forums",
-                columns: new[] { "Id", "Description", "Name", "ParentId" },
-                values: new object[] { 2, "Test", "The Guilds And Factions", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Forums",
-                columns: new[] { "Id", "Description", "Name", "ParentId" },
-                values: new object[] { 3, "Test", "The Rosters", 1 });
+                columns: new[] { "Id", "Description", "Name", "ParentId", "Type" },
+                values: new object[] { 2, "Test", "Regulations & Guidelines", 1, "forum" });
 
             migrationBuilder.InsertData(
                 table: "Topics",
@@ -215,8 +211,13 @@ namespace ForumSoftware.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Forums",
-                columns: new[] { "Id", "Description", "Name", "ParentId" },
-                values: new object[] { 4, "Test", "The Guilds And Factions Test", 2 });
+                columns: new[] { "Id", "Description", "Name", "ParentId", "Type" },
+                values: new object[] { 3, "Test", "The Guilds And Factions", 2, "forum" });
+
+            migrationBuilder.InsertData(
+                table: "Forums",
+                columns: new[] { "Id", "Description", "Name", "ParentId", "Type" },
+                values: new object[] { 4, "Test", "The Rosters", 2, "forum" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
